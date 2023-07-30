@@ -235,13 +235,14 @@ def main():
             preprocess_df = preprocess(data, "Batch")
             if st.button('Predict'):
                 #Get batch prediction
-                prediction = model.predict(preprocess_df)
-                prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
-                prediction_df = prediction_df.replace(f"Predicted Price: ${predicted_price:.1f}")
+                predicted_price = model.predict(preprocess_df)
+                ''' prediction_df = pd.DataFrame(prediction, columns=["Predictions"])
+                    prediction_df = prediction_df.replace(f"Predicted Price: ${predicted_price:.1f}")'''
+                st.success(f"Predicted Price of AIRBNB House: ${np.exp(predicted_price[0]):.1f}")
 
                 st.markdown("<h3></h3>", unsafe_allow_html=True)
                 st.subheader('Prediction')
-                st.write(prediction_df)
+               # st.write(prediction_df)
             
 if __name__ == '__main__':
         main()

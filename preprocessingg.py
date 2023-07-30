@@ -7,6 +7,7 @@ Created on Sat July 29 07:05:05 2023
 """
 
 import pandas as pd
+import numpy as np
 #from sklearn.preprocessing import MinMaxScaler
 
 def preprocess(df, option):
@@ -114,26 +115,26 @@ def preprocess(df, option):
     elif (option == "Batch"):
         pass
         #Drop Id
-        df.drop(labels = ["id"], axis = 1, inplace = True)
+        #df.drop(labels = ["id"], axis = 1, inplace = True)
         # Property_type operation
-        property_type_counts = df['property_type'].value_counts()
-        property_type_counts_less_than_25 = property_type_counts[property_type_counts < 25]
-        df.loc[df['property_type'].isin(property_type_counts_less_than_25.index), 'property_type'] = 'Other'
-        df = pd.get_dummies(df,columns=["property_type"])
+        #property_type_counts = df['property_type'].value_counts()
+        #property_type_counts_less_than_25 = property_type_counts[property_type_counts < 25]
+        #df.loc[df['property_type'].isin(property_type_counts_less_than_25.index), 'property_type'] = 'Other'
+        #df = pd.get_dummies(df,columns=["property_type"])
         #accommodates operation
-        df = pd.get_dummies(df,columns=["accommodates"])
+        #df = pd.get_dummies(df,columns=["accommodates"])
         #cancellation_policy operation
-        df = pd.get_dummies(df,columns=["cancellation_policy"])
+        #df = pd.get_dummies(df,columns=["cancellation_policy"])
         #cleaning_fee operation
-        df['cleaning_fee'] = df['cleaning_fee'].astype(int)
+        #df['cleaning_fee'] = df['cleaning_fee'].astype(int)
         #bed_type operation
-        df = pd.get_dummies(df,columns=["bed_type"])
+        #df = pd.get_dummies(df,columns=["bed_type"])
         #room_type operation
-        df = pd.get_dummies(df, columns=["room_type"])
+        #df = pd.get_dummies(df, columns=["room_type"])
         #bathrooms operation
-        df = pd.get_dummies(df, columns=["bathrooms"])
+        #df = pd.get_dummies(df, columns=["bathrooms"])
         #amenities operations
-        import re
+        '''import re
         amenities_set = set()
         for amenitie in df['amenities']:
               amenitie_set = set(re.sub(r'(\"|\{|\})', '', amenitie).split(','))
@@ -276,9 +277,9 @@ def preprocess(df, option):
                 df.loc[index, 'lat_center'] = 42.3601
                 df.loc[index, 'long_center'] = -71.0589
 
-        df['distance_to_center']=np.sqrt((df['lat_center']-df['latitude'])**2+(df['long_center']-df['longitude'])**2)# Creates the new column
+        df['distance_to_center']=np.sqrt((df['lat_center']-df['latitude'])**2+(df['long_center']-df['longitude'])**2)# Creates the new column'''
 
-        del df['description'] # String values
+        '''del df['description'] # String values
         del df['first_review'] #  Used to create 'super_host'
         del df['host_since'] # # Used to create 'super_host'
         del df['last_review'] #  Used to create 'super_host'
@@ -291,7 +292,7 @@ def preprocess(df, option):
         del df['review_scores_rating'] # Used to create 'super_host'
         del df['bedrooms'] # High correlation with accomadation
         del df['beds'] # High correlation with accomadation
-
+'''
         df['time_since_last_review'] = df['time_since_last_review'].fillna(0)
 
         boolean_columns = df.select_dtypes(include='bool').columns
